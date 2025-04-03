@@ -45,10 +45,6 @@ class MyHomePage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-<<<<<<< HEAD
-          Text('A dumb idea:'),
-          Text(appState.current.asLowerCase),
-=======
           SizedBox(height: 100),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -65,7 +61,6 @@ class MyHomePage extends StatelessWidget {
             width: double.infinity,
             child: Center(child: Text('Bottom Banner')),
           ),
->>>>>>> fee802ff58217fdeb24498c5b4384b9449760a90
         ],
       ),
     );
