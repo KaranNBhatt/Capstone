@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'register_page.dart'; 
 
 class LoginPage extends StatefulWidget {
   @override
@@ -26,12 +27,18 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void _navigateToRegister() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RegisterPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login', style: TextStyle(color: Colors.white),
-        ),
+        title: Text('Login', style: TextStyle(color: Colors.white)),
         centerTitle: true,
         backgroundColor: Colors.black,
         iconTheme: IconThemeData(color: Colors.white),
@@ -69,12 +76,22 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: _submitLogin,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                     ),
                     child: Text(
                       'Login',
                       style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: _navigateToRegister,
+                    child: Text(
+                      "Don't have an account? Register here",
+                      style: TextStyle(
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ],
