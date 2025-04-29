@@ -1,19 +1,12 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
-import 'package:sqflite/sqflite.dart';
-import 'database_helper.dart';
 import 'login_page.dart';
+import 'view_sheets_page.dart';
+
 
 void main() {
   runApp(const MyApp());
-    // Initialize for web
-  if (kIsWeb) {
-    // Set the database factory
-    databaseFactory = databaseFactoryFfiWeb;
-  }
 }
 
 class MyApp extends StatelessWidget {
@@ -69,12 +62,7 @@ class MyHomePage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(right: 10),
             child: TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
-              },
+              onPressed: () {},
               style: TextButton.styleFrom(
                 backgroundColor: Colors.black,
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -102,7 +90,12 @@ class MyHomePage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => CreateMusicSheetPage()),
                   );
                 }),
-                _buildButton('View Sheets', context, () {}),
+                _buildButton('View Sheets', context, () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ViewSheetsPage()),
+                  );
+                }),
               ],
             ),
             SizedBox(height: 30),
