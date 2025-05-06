@@ -62,7 +62,12 @@ class MyHomePage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(right: 10),
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
               style: TextButton.styleFrom(
                 backgroundColor: Colors.black,
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),

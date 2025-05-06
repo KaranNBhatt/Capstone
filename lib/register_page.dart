@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fancy_password_field/fancy_password_field.dart';
+
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -8,7 +10,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final FancyPasswordController _passwordController = FancyPasswordController();
 
   @override
   void dispose() {
@@ -51,17 +53,28 @@ class _RegisterPageState extends State<RegisterPage> {
                     value == null || value.isEmpty ? 'Enter your email' : null,
               ),
               SizedBox(height: 20),
-              TextFormField(
-                controller: _passwordController,
+
+              FancyPasswordField(
+                passwordController: _passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
                 ),
-                obscureText: true,
-                validator: (value) =>
-                    value == null || value.isEmpty ? 'Enter your password' : null,
+                validationRules: <ValidationRule>{
+                  MinCharactersValidationRule(8),
+                  UppercaseValidationRule(),
+                  DigitValidationRule(),
+                },
+                hasStrengthIndicator: true,
+                hasShowHidePassword: true,
+                validator: (_) {
+                  return _passwordController.areAllRulesValidated
+                      ? null
+                      : 'Password does not meet requirements';
+                },
               ),
-              SizedBox(height: 30),
+               const SizedBox(height: 30),
+
               ElevatedButton(
                 onPressed: _submitRegister,
                 style: ElevatedButton.styleFrom(
