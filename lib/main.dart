@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'login_page.dart';
 import 'view_sheets_page.dart';
+import 'music_sheet_page.dart';
 
 
 void main() {
@@ -134,36 +135,6 @@ class MyHomePage extends StatelessWidget {
               text,
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CreateMusicSheetPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Create Music Sheet'),
-        centerTitle: true,
-        backgroundColor: Colors.deepOrange,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              StudentForm(),
-              SizedBox(height: 20),
-              Container(
-                color: Colors.grey[300],
-                padding: EdgeInsets.all(16),
-                width: double.infinity,
-                child: Center(child: Text('Bottom Banner')),
-              ),
-            ],
           ),
         ),
       ),
