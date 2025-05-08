@@ -4,9 +4,16 @@ import 'package:provider/provider.dart';
 import 'login_page.dart';
 import 'view_sheets_page.dart';
 import 'music_sheet_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
-void main() {
+void main() async{
+   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -57,7 +64,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Title'),
+        title: Text('Music Sheet App'),
         centerTitle: true,
         actions: [
           Padding(
@@ -152,25 +159,37 @@ class _StudentFormState extends State<StudentForm> {
   Problem? _selectedProblem;
   final _formKey = GlobalKey<FormState>();
 
-  final List<Problem> _problems = [
-    Problem(1, 'Intonation'),
-    Problem(2, 'Shifting'),
-    Problem(3, 'Rhythm'),
-    Problem(4, 'Bowing'),
-    Problem(5, 'String Crossings'),
-    Problem(6, 'Articulation'),
-    Problem(7, 'Note Clarity'),
-    Problem(8, 'Tone Production'),
-    Problem(9, 'Chords'),
-    Problem(10, 'Two-voice Chords'),
-    Problem(11, 'Three-voice Chords'),
-    Problem(12, 'Four-voice Chords'),
-    Problem(13, 'Dynamics'),
-    Problem(14, 'Phrasing'),
-    Problem(15, 'Too Slow'),
-    Problem(16, 'Too Fast'),
-    Problem(17, 'Memory'),
-  ];
+  List<Problem> _problems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchProblemsFromFirestore();
+  }
+
+  Future<void> _fetchProblemsFromFirestore() async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance.collection('Problems').get();
+      final problems = querySnapshot.docs.map((doc) {
+        final data = doc.data();
+        return Problem(
+          data['problem_id'] as int,
+          data['problem_name'] as String,
+        );
+      }).toList();
+
+      problems.sort((a, b) => a.id.compareTo(b.id)); // Sort by ID
+      
+      setState(() {
+        _problems = problems;
+      });
+    } catch (e) {
+      print('Error fetching problems: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to load problems')),
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -275,3 +294,5 @@ class _StudentFormState extends State<StudentForm> {
     );
   }
 }
+
+     
