@@ -7,6 +7,8 @@ import 'music_sheet_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'profile_page.dart';
+
 
 
 void main() async{
@@ -96,7 +98,12 @@ class MyHomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildButton('Profile', context, () {}),
+                _buildButton('Profile', context, () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ProfilePage()),
+                  );
+                }),
                 _buildButton('Create Music Sheet', context, () {
                   Navigator.push(
                     context,
